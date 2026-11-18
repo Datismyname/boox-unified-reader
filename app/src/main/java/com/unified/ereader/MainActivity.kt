@@ -386,15 +386,22 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     put("generationConfig", JSONObject().put("responseMimeType", "application/json"))
                 }
 
-                val url = URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$apiKey")
+                val url = URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent")
                 val conn = (url.openConnection() as HttpURLConnection).apply {
                     requestMethod = "POST"
                     setRequestProperty("Content-Type", "application/json")
+                    setRequestProperty("x-goog-api-key", apiKey)
                     doOutput = true
                 }
                 conn.outputStream.use { it.write(reqBody.toString().toByteArray(Charsets.UTF_8)) }
 
-                val respText = conn.inputStream.bufferedReader().use { it.readText() }
+                val stream = if (conn.responseCode in 200..299) conn.inputStream else conn.errorStream
+                val respText = stream.bufferedReader().use { it.readText() }
+                if (conn.responseCode !in 200..299) {
+                    val errMsg = JSONObject(respText).optJSONObject("error")?.optString("message") ?: "HTTP ${conn.responseCode}"
+                    runOnUiThread { Toast.makeText(this, "خطأ Gemini: $errMsg", Toast.LENGTH_LONG).show() }
+                    return@Thread
+                }
                 val rawJson = JSONObject(respText).getJSONArray("candidates").getJSONObject(0)
                     .getJSONObject("content").getJSONArray("parts").getJSONObject(0).getString("text")
 
@@ -1234,7 +1241,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun loadBooks() {
         val booksDir = File(Environment.getExternalStorageDirectory(), "MyBooks")
         if (!booksDir.exists()) booksDir.mkdirs()
-        allBooks = booksDir.listFiles { f -> f.extension.lowercase() in listOf("pdf", "epub", "txt") }?.sortedBy { it.name } ?: emptyList()
+        allBooks = booksDir.listFiles { f -> !f.name.startsWith(".") && f.extension.lowercase() in listOf("pdf", "epub", "txt") }?.sortedBy { it.name } ?: emptyList()
     }
 
     private fun loadLocalMetadataJson() {
