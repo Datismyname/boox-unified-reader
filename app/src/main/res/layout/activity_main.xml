@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:background="#FFFFFF">
+
+    <LinearLayout android:id="@+id/libraryContainer" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="12dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingBottom="10dp">
+            <TextView android:id="@+id/tvHeaderTitle" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="المكتبة" android:textSize="26sp" android:textStyle="bold" android:textColor="#000000" />
+            <Button android:id="@+id/btnVoiceCommand" android:layout_width="wrap_content" android:layout_height="46dp" android:layout_marginEnd="8dp" android:background="#000000" android:textColor="#FFFFFF" android:paddingHorizontal="14dp" android:text="🎤 اطلب كتاباً" android:textSize="18sp" android:textStyle="bold" />
+            <ImageButton android:id="@+id/btnLibraryLock" android:layout_width="46dp" android:layout_height="46dp" android:background="#EEEEEE" android:src="@android:drawable/ic_lock_lock" android:contentDescription="قفل المكتبة" />
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/libraryControlBar" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone" android:paddingBottom="10dp">
+            <EditText android:id="@+id/searchBar" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="بحث في الكتب..." android:textSize="18sp" android:textColor="#000000" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                <Button android:id="@+id/btnCloudSync" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="☁️ مزامنة" android:textSize="14sp" />
+                <Button android:id="@+id/btnApiKeySetup" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="🔑 المفتاح" android:textSize="14sp" />
+                <Button android:id="@+id/btnToggleAppsView" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="التطبيقات" android:textSize="14sp" />
+                <Button android:id="@+id/btnWifi" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="الواي فاي" android:textSize="14sp" />
+                <Button android:id="@+id/btnSystemSettings" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="النظام" android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <GridView android:id="@+id/gridBooksOrApps" android:layout_width="match_parent" android:layout_height="match_parent" android:numColumns="3" android:verticalSpacing="14dp" android:horizontalSpacing="10dp" android:stretchMode="columnWidth" />
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/readerContainer" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="#FFFFFF" android:visibility="gone">
+        <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#F2F2F2" android:padding="6dp">
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                <ImageButton android:id="@+id/btnHomeLauncher" android:layout_width="50dp" android:layout_height="46dp" android:src="@drawable/ic_home_black" android:background="#E0E0E0" android:contentDescription="الرئيسية" />
+                <ImageButton android:id="@+id/btnReaderLock" android:layout_width="46dp" android:layout_height="46dp" android:layout_marginStart="6dp" android:src="@android:drawable/ic_lock_lock" android:contentDescription="قفل القارئ" />
+                <Button android:id="@+id/btnReaderVoice" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:background="#000000" android:textColor="#FFFFFF" android:paddingHorizontal="10dp" android:text="🎤 مساعد" android:textSize="17sp" android:textStyle="bold" />
+                <Button android:id="@+id/btnRewindHistory" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="⏪ أين كنت؟" android:textSize="17sp" android:textStyle="bold" />
+                <Button android:id="@+id/btnZoomIn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="تكبير +" android:textSize="19sp" android:textStyle="bold" />
+                <Button android:id="@+id/btnZoomOut" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="تصغير -" android:textSize="19sp" android:textStyle="bold" />
+                <Button android:id="@+id/btnSaveBookmark" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:paddingHorizontal="12dp" android:text="حفظ علامة" android:textSize="17sp" android:textStyle="bold" />
+                <Button android:id="@+id/btnGotoBookmark" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="الذهاب للعلامة" android:textSize="17sp" />
+                <Button android:id="@+id/btnSpeak" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="🔊 استماع" android:textSize="17sp" android:textStyle="bold" />
+                <Button android:id="@+id/btnDarkMode" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="الوضع الليلي" android:textSize="17sp" />
+                <Button android:id="@+id/btnLineSpacing" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="تباعد الأسطر" android:textSize="17sp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView android:id="@+id/tvRewindBanner" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#000000" android:textColor="#FFFFFF" android:padding="10dp" android:textSize="16sp" android:textStyle="bold" android:visibility="gone" />
+
+        <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <WebView android:id="@+id/epubWebView" android:layout_width="match_parent" android:layout_height="match_parent" />
+            <ImageView android:id="@+id/pdfImageView" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter" android:visibility="gone" />
+            <View android:id="@+id/touchZoneRight" android:layout_width="90dp" android:layout_height="match_parent" android:layout_gravity="end" android:background="@android:color/transparent" />
+            <View android:id="@+id/touchZoneLeft" android:layout_width="90dp" android:layout_height="match_parent" android:layout_gravity="start" android:background="@android:color/transparent" />
+        </FrameLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:background="#F2F2F2" android:paddingHorizontal="16dp" android:paddingVertical="6dp">
+            <TextView android:id="@+id/tvPageStatus" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="صفحة 1 من 1" android:textColor="#000000" android:textSize="16sp" android:textStyle="bold" />
+            <TextView android:id="@+id/tvBatteryStatus" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="البطارية: 100%" android:textColor="#000000" android:textSize="16sp" android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
